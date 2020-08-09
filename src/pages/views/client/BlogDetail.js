@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import {
+    useParams
+} from "react-router-dom";
 import Bg5 from '../../../assets/client/img/bg-img/bg-7.jpg';
 import rp1 from '../../../assets/client/img/bg-img/rp1.jpg';
 import rp2 from '../../../assets/client/img/bg-img/rp2.jpg';
 import rp3 from '../../../assets/client/img/bg-img/rp3.jpg';
 const BlogDetail = () => {
+    let { id } = useParams();
+    console.log(id);
     return (
         <div className="single-blog-wrapper">
             {/* Single Blog Post Thumb */}
@@ -45,7 +50,7 @@ const BlogDetail = () => {
                             <h5>Etiam leo nibh, consectetur nec orci et, tempus tempus ex</h5>
                         </a>
                     </div>
-                    
+
                 </div>
             </div>
         </div>

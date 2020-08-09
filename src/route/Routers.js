@@ -30,17 +30,15 @@ import BlogDetail from '../pages/views/admin/blog/BlogDetail';
 import ProductDetailFr from '../pages/views/client/ProductDetail'
 import Blog from '../pages/views/client/Blog';
 import BlogDetailFr from '../pages/views/client/BlogDetail';
-import Pagination from '../components/Pagination';
-
+import Contact from '../pages/views/client/Contact';
 
 const Routers = () => {
     return (
         <Router>
             <Switch>
-                <Route path="/admin/:path?/:path?/:path?/:path?/:path?/:path?/:path?/:path?" exact>
+                <Route path="/admin/:path?/:path?/:path?/:path?/:path?/:path?" exact>
                     <LayoutAdmin>
                         <Switch>
-
                             <Route path='/admin' exact>
                                 <Dashboard />
                             </Route>
@@ -87,13 +85,11 @@ const Routers = () => {
                             <Route path='/admin/edit-blog/:id' exact>
                                 <EditBlog />
                             </Route>
-                            <Route path='/admin/blog-detail/:id' exact>
-                                <BlogDetail />
-                            </Route>
+
                         </Switch>
                     </LayoutAdmin>
                 </Route>
-                <Route path="/:path?/:path?" exact>
+                <Route path="/:path?/:path?/:path?/:path?" exact>
                     <LayoutClient>
                         <Switch>
                             <Route path="/" exact>
@@ -110,6 +106,9 @@ const Routers = () => {
                             </Router>
                             <Router path="/blog-detail/:id" exact>
                                 <BlogDetailFr />
+                            </Router>
+                            <Router path="/contact" exact>
+                                <Contact />
                             </Router>
 
                         </Switch>

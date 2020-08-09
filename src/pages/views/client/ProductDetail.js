@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import {
-    useParams
-} from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 const ProductDetail = () => {
-    const [prdetail, setPrdetail] = useState({});
     let { id } = useParams();
     console.log(id);
+    const [detail, setDetail] = useState({});
     const setList = () => {
         axios
             .get("http://127.0.0.1:8000/api/product/" + id)
             .then(function (response) {
-                setPrdetail(response.data)
+                setDetail(response.data)
             })
             .catch(function (error) {
                 console.log(error);
             });
 
     }
+    useEffect(setList, []);
     useEffect(setList, []);
     return (
         <section className="single_product_details_area d-flex align-items-center">
@@ -28,7 +26,7 @@ const ProductDetail = () => {
                     <div className="owl-stage-outer">
                         <div className="owl-stage">
                             <div className="owl-item cloned">
-                                <img src={prdetail.img} alt="" />
+                                <img src={detail.img} alt="" />
                             </div>
                             <div className="owl-item cloned" >
                                 <img src="img/product-img/product-big-3.jpg" alt="" />

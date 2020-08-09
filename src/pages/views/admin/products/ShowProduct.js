@@ -65,7 +65,7 @@ const ShowProducts = () => {
             </Link>
           </button>
           <button type="button" className="btn btn-light">
-            <button type="button" class="btn btn-block btn-danger" onClick={() => {
+            <button type="button" className="btn btn-block btn-danger" onClick={() => {
               if (
                 window.confirm("Delete All product ?")
               ) {
