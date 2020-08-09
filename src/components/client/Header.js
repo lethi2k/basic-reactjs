@@ -31,6 +31,7 @@ export default class Header extends Component {
                                     <li><Link to="/">Trang Chủ</Link></li>
                                     <li><Link to="/shop">Sản Phẩm</Link></li>
                                     <li><Link to="/blog">Bài Viết</Link></li>
+                                    <li><Link to="/contact">Bài Viết</Link></li>
                                     {/* <li><Link to="/contact">Contact</Link></li> */}
                                 </ul>
                             </div>

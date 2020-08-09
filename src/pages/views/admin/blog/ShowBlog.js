@@ -2,8 +2,24 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import parse from 'html-react-parser';
+import Pagination from '../../../../components/PaginationBlog';
 const ShowBlog = () => {
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(5);
+  // Data
+  const initialFormState = { id: null, name_product: '', img: '', price: '', sale_price: '', meta: '', content: '', id_dm: '' }
+
+
+  // Get current posts
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = items.slice(indexOfFirstPost, indexOfLastPost);
+
+  // Change page
+  const paginate = pageNumber => setCurrentPage(pageNumber);
+
 
   const setList = () => {
     axios
@@ -51,7 +67,7 @@ const ShowBlog = () => {
             </Link>
           </button>
           <button type="button" className="btn btn-light">
-            <button type="button" class="btn btn-block btn-danger" onClick={() => {
+            <button type="button" className="btn btn-block btn-danger" onClick={() => {
               if (
                 window.confirm("Delete blog ?")
               ) {
@@ -84,7 +100,7 @@ const ShowBlog = () => {
                   <th>Tiêu đề</th>
                   <th>Ảnh đại diện</th>
                   <th>Mô tả ngắn</th>
-                  <th>Nội dung</th>
+                  <th style={{ color: "red", width: "50px", height: "200px" }}>Nội dung</th>
                   <th>Danh mục</th>
                   <th>Ngày Tạo</th>
                   <th>Hành Động</th>
@@ -93,12 +109,12 @@ const ShowBlog = () => {
               <tbody>
                 {items.map((blog, index) => (
                   <tr key={index}>
-                    <th >{++index}</th>
+                    <th >{blog.id}</th>
                     <td>{blog.name}</td>
                     <td><img src={blog.img} width="100px" /></td>
                     <td>{blog.meta}</td>
                     <td>{parse(blog.content)}</td>
-                    <td>{blog.cate_id}</td>
+                    <td>{blog.cate_name}</td>
                     <td>{blog.created_at}</td>
                     <td>
                       <Link to={`edit-blog/${blog.id}`}>
@@ -134,6 +150,11 @@ const ShowBlog = () => {
                 ))}
               </tbody>
             </table>
+            <Pagination
+              postsPerPage={postsPerPage}
+              totalPosts={items.length}
+              paginate={paginate}
+            />
           </div>
           {/* /.card-body */}
         </div>

@@ -175,7 +175,7 @@ const EditProduct = () => {
             <select className="form-control" name="id_dm" ref={register}>
               <option value="0">Select danh mục</option>
               {items.map((cate, index) => (
-                <option value={cate.id} key={index}>{cate.name}</option>
+                <option value={cate.id} key={index} selected={cate.id == detail.id_dm ? "selected" : ''}>{cate.name}</option>
               ))}
             </select>
             {errors.id_dm && <span style={{ color: "red" }} >This iddm is required</span>}

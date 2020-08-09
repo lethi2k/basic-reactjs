@@ -1,7 +1,33 @@
-import React from 'react'
-import Bg5 from '../../../assets/client/img/bg-img/bg-5.jpg';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
+import Bg5 from '../../../assets/client/img/bg-img/bg-5.jpg';
 const Blog = () => {
+    const [items, setItems] = useState([]);
+    const setList = () => {
+        axios
+            .get("http://127.0.0.1:8000/api/blog/index")
+            .then(function (response) {
+                setItems(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    useEffect(setList, []);
+
+    const [cate, setCate] = useState([]);
+    const setListCate = () => {
+        axios
+            .get("http://127.0.0.1:8000/api/cate-blog/index")
+            .then(function (response) {
+                setCate(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    useEffect(setListCate, []);
     return (
         <div>
             <div className="breadcumb_area breadcumb-style-two bg-img" style={{ backgroundImage: 'url(' + Bg5 + ')' }}>
@@ -9,7 +35,7 @@ const Blog = () => {
                     <div className="row h-100 align-items-center">
                         <div className="col-12">
                             <div className="page-title text-center">
-                                <h2>Fashion Blog</h2>
+                                <h2>Show danh mục blog</h2>
                             </div>
                         </div>
                     </div>
@@ -22,24 +48,26 @@ const Blog = () => {
                 <div className="container">
                     <div className="row">
                         {/* Single Blog Area */}
-                        <div className="col-12 col-lg-6">
-                            <div className="single-blog-area mb-50">
-                                <img src="https://chiasemeohay.com/images/cho-ra-doi-nhung-buc-anh-dep-khi-di-du-lich5.jpg" alt="" />
-                                {/* Post Title */}
-                                <div className="post-title">
-                                    <Link to="/blog-detail/1">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</Link>
-                                </div>
-                                {/* Hover Content */}
-                                <div className="hover-content">
+                        {items.map((blog) => (
+                            <div className="col-12 col-lg-6">
+                                <div className="single-blog-area mb-50">
+                                    <img src={blog.img} alt="" />
                                     {/* Post Title */}
-                                    <div className="hover-post-title">
-                                        <Link to="/blog-detail/1">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</Link>
+                                    <div className="post-title">
+                                        <Link to={`blog-detail/${blog.id}`}>{blog.name}</Link>
                                     </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis fringilla tortor. Phasellus purus dignissim convallis.</p>
-                                    <Link to="/blog-detail/1">Continue reading <i className="fa fa-angle-right" /></Link>
+                                    {/* Hover Content */}
+                                    <div className="hover-content">
+                                        {/* Post Title */}
+                                        <div className="hover-post-title">
+                                            <Link to={`blog-detail/${blog.id}`}>{blog.name}</Link>
+                                        </div>
+                                        <p>{blog.meta}</p>
+                                        <Link to={`blog-detail/${blog.id}`}>Chi tiết blog <i className="fa fa-angle-right" /></Link>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        ))}
                         {/* Single Blog Area */}
                     </div>
                 </div>

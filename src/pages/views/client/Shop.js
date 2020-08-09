@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Img1 from '../../../assets/client/img/product-img/product-1.jpg';
-import Img2 from '../../../assets/client/img/product-img/product-2.jpg';
+// import Img1 from '../../../assets/client/img/product-img/product-1.jpg';
+// import Img2 from '../../../assets/client/img/product-img/product-2.jpg';
 import 'bootstrap/dist/css/bootstrap.css';
 const Shop = () => {
     const [items, setItems] = useState([]);
@@ -114,7 +114,7 @@ const Shop = () => {
                                                     </div>
 
                                                     <div class="card-footer">
-                                                        <Link to={`detail/${product.id}`} class="btn btn-primary mx-4" >Chi tiết</Link>
+                                                        <Link to={`/detail/${product.id}`} class="btn btn-primary mx-4" >Chi tiết</Link>
                                                         <Link to="" class="btn btn-success">Giỏ Hàng</Link>
                                                     </div>
                                                 </div>

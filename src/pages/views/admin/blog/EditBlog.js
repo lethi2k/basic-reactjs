@@ -8,6 +8,21 @@ import {
   useParams
 } from "react-router-dom";
 const EditBlog = () => {
+  const [items, setItems] = useState([]);
+
+  const setCate = () => {
+    axios
+      .get("http://127.0.0.1:8000/api/cate-blog/index")
+
+      .then(function (response) {
+        setItems(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  useEffect(setCate, []);
+
   let { id } = useParams();
   const [content, setContent] = useState('');
   const [img, setImage] = useState('');
@@ -120,12 +135,12 @@ const EditBlog = () => {
           </div>
           <div className="form-group">
             <label htmlFor="cate_id">iddm</label>
-            <input
-              type="text"
-              className="form-control"
-              id="cate_id" value={detail.cate_id} onChange={onHandleChange}
-              name="cate_id" ref={register({ required: true })}
-            />
+            <select className="form-control" name="cate_id" ref={register}>
+              <option value="0">Select danh mục</option>
+              {items.map((cate, index) => (
+                <option value={cate.id} key={index} selected={cate.id == detail.cate_id ? "selected" : ''}>{cate.cate_name}</option>
+              ))}
+            </select>
             {errors.cate_id && <span style={{ color: "red" }} >This iddm is required</span>}
           </div>
           <button type="submit" className="btn btn-success">

@@ -1,9 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useForm } from 'react-hook-form';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 const AddBlog = () => {
+  const [items, setItems] = useState([]);
+
+  const setList = () => {
+    axios
+      .get("http://127.0.0.1:8000/api/cate-blog/index")
+
+      .then(function (response) {
+        setItems(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  useEffect(setList, []);
+
   const [img, setImage] = useState('');
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(false);
@@ -95,12 +111,12 @@ const AddBlog = () => {
 
           <div className="form-group">
             <label htmlFor="cate_id">iddm</label>
-            <input
-              type="text"
-              className="form-control"
-              id="cate_id"
-              name="cate_id" ref={register({ required: true })}
-            />
+            <select className="form-control" name="cate_id" ref={register}>
+              <option value="0">Select danh mục</option>
+              {items.map((cate, index) => (
+                <option value={cate.id} key={index}>{cate.cate_name}</option>
+              ))}
+            </select>
             {errors.cate_id && <span style={{ color: "red" }} >This iddm is required</span>}
           </div>
           <button type="submit" className="btn btn-success">
